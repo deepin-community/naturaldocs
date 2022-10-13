@@ -1,0 +1,21 @@
+Source: naturaldocs
+Section: devel
+Priority: optional
+Maintainer: Debian QA Group <packages@qa.debian.org>
+Build-Depends: debhelper-compat (= 12)
+Rules-Requires-Root: no
+Standards-Version: 3.9.8
+Homepage: http://www.naturaldocs.org/
+Vcs-Browser: http://anonscm.debian.org/cgit/collab-maint/naturaldocs.git
+Vcs-Git: git://anonscm.debian.org/collab-maint/naturaldocs.git
+
+Package: naturaldocs
+Architecture: all
+Multi-Arch: foreign
+Depends: ${perl:Depends}, ${misc:Depends}
+Description: extensible, multi-language documentation generator
+ Natural Docs is an extensible, multi-language documentation
+ generator.  You document your code in a natural syntax that reads
+ like plain English.  Natural Docs then scans your code and builds
+ high-quality HTML documentation from it.
+

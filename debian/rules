@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+perlmoddir = /usr/share/perl5
+
+
+%:
+	dh $@
+
+override_dh_fixperms:
+	dh_fixperms
+	chmod 755 debian/naturaldocs/$(perlmoddir)/naturaldocs/NaturalDocs

@@ -1,0 +1,24 @@
+Description: Make generated output predictable
+ This make packages built using naturaldocs reproducable.
+Author: Chris Lamb <lamby@debian.org>
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Bug-Debian: https://bugs.debian.org/778962
+Forwarded: no
+Reviewed-By: Petter Reinholdtsen <pere@hungry.com>
+Last-Update: 2016-03-07
+
+--- naturaldocs-1.51.orig/Modules/NaturalDocs/Builder/HTMLBase.pm
++++ naturaldocs-1.51/Modules/NaturalDocs/Builder/HTMLBase.pm
+@@ -578,7 +578,7 @@ sub EndBuild #(hasChanged)
+ 		}
+ 
+ 
+-    my @indexes = keys %{NaturalDocs::Menu->Indexes()};
++    my @indexes = sort keys %{NaturalDocs::Menu->Indexes()};
+ 
+     open(FH_INDEXINFOJS, '>' . NaturalDocs::File->JoinPaths( $self->JavaScriptDirectory(), 'searchdata.js'));
+     binmode(FH_INDEXINFOJS, ':encoding(UTF-8)');

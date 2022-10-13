@@ -1,0 +1,31 @@
+Description: Make output timestamps use SOURCE_DATE_EPOCH.
+ This should make output reproducable.
+Author: Chris Lamb <lamby@debian.org>
+Bug-Debian: https://bugs.debian.org/831377
+Forwarded: no
+Reviewed-By: Petter Reinholdtsen <pere@hungry.com>
+Last-Update: 2016-09-15
+
+--- naturaldocs-1.51.orig/Modules/NaturalDocs/Menu.pm
++++ naturaldocs-1.51/Modules/NaturalDocs/Menu.pm
+@@ -393,9 +393,9 @@ sub LoadAndUpdate
+     # menu changing.
+     if (defined $timestampCode)
+         {
+-        my (undef, undef, undef, $currentDay, $currentMonth, $currentYear) = localtime();
++        my (undef, undef, undef, $currentDay, $currentMonth, $currentYear) = gmtime($ENV{SOURCE_DATE_EPOCH} || time);
+         my (undef, undef, undef, $lastDay, $lastMonth, $lastYear) =
+-            localtime( (stat( NaturalDocs::Project->DataFile('PreviousMenuState.nd') ))[9] );
++            gmtime( (stat( NaturalDocs::Project->DataFile('PreviousMenuState.nd') ))[9] );
+             # This should be okay if the previous menu state file doesn't exist.
+ 
+         if ($currentDay != $lastDay || $currentMonth != $lastMonth || $currentYear != $lastYear)
+@@ -1547,7 +1547,7 @@ sub GenerateTimestampText
+                                    'July', 'August', 'September', 'October', 'November', 'December' );
+     my @shortMonths = ( 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec' );
+ 
+-    my (undef, undef, undef, $day, $month, $year) = localtime();
++    my (undef, undef, undef, $day, $month, $year) = gmtime($ENV{SOURCE_DATE_EPOCH} || time);
+     $year += 1900;
+ 
+     my $longDay;
